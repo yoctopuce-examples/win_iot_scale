@@ -5,9 +5,11 @@
     xmlns:local="using:Raspberry_PI_Scale"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    Loaded="onLoad"
+    mc:Ignorable="d" FontFamily="Segoe UI">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock HorizontalAlignment="Center"  Text="TextBlock" Name="CurVal"  TextWrapping="Wrap" VerticalAlignment="Center" FontSize="288"/>
 
     </Grid>
 </Page>

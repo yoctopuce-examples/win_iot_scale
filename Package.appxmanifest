@@ -45,5 +45,20 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+
+    <DeviceCapability Name="humaninterfacedevice">
+      <!-- Yocto-Temperature -->
+      <Device Id="vidpid:24e0 000b">
+        <Function Type="usage:ff00 0001" />
+      </Device>
+      <!-- Yocto-Bridge -->
+      <Device Id="vidpid:24e0 0076">
+        <Function Type="usage:ff00 0001" />
+      </Device>
+      <!-- Yocto-MaxiDisplay-G -->
+      <Device Id="vidpid:24e0 004A">
+        <Function Type="usage:ff00 0001" />
+      </Device>
+    </DeviceCapability>
   </Capabilities>
 </Package>
