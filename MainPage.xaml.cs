@@ -28,7 +28,6 @@ namespace Raspberry_PI_Scale
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private int hardwaredetect;
         private NonReentrantDispatcherTimer timer;
         private YWeighScale sensor;
         private YDisplay display;
@@ -96,7 +95,9 @@ namespace Raspberry_PI_Scale
                     // display a text in the middle of the screen
                     await l0.selectFont("Large.yfm");
                 }
-
+                await sensor.set_excitation(YWeighScale.EXCITATION_AC);
+                await YAPI.Sleep(3000);
+                await sensor.tare();
                 unit = await sensor.get_unit();
                 await sensor.registerValueCallback(sensorValueChangeCallBack);
             } catch (YAPI_Exception ex) {
