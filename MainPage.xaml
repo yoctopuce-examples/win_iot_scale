@@ -9,7 +9,7 @@
     mc:Ignorable="d" FontFamily="Segoe UI">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock HorizontalAlignment="Center"  Text="TextBlock" Name="CurVal"  TextWrapping="Wrap" VerticalAlignment="Center" FontSize="288"/>
-
+        <TextBlock HorizontalAlignment="Center"  Text="..." Name="CurVal"  TextWrapping="Wrap" VerticalAlignment="Center" FontSize="288" FontFamily="Segoe UI"/>
+        <HyperlinkButton NavigateUri="https://www.yoctopuce.com" Margin="1773,1048,0,0" FontFamily="Segoe UI">www.yoctopuce.com</HyperlinkButton>
     </Grid>
 </Page>

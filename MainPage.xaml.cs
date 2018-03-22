@@ -36,6 +36,7 @@ namespace Raspberry_PI_Scale
         private int h;
         private YDisplayLayer l0;
         private string unit;
+        private YDisplayLayer l1;
 
         public MainPage()
         {
@@ -49,13 +50,15 @@ namespace Raspberry_PI_Scale
 
         private async Task UpdateDisplay(string value)
         {
-            value += " " + unit;
-            CurVal.Text = value;
+            double dval = Convert.ToDouble(value);
+            string txt = String.Format("{0:F2} {1}", dval, unit);
+            CurVal.Text = txt;
             if (display != null) {
                 long start = DateTime.Now.Ticks;
                 try {
                     await l0.clear();
-                    await l0.drawText(w / 2, h / 2, YDisplayLayer.ALIGN.CENTER_DECIMAL, value);
+                    await l0.drawText(w -1, h / 2, YDisplayLayer.ALIGN.CENTER_RIGHT, txt);
+                    await display.swapLayerContent(0, 1);
                 } catch (YAPI_Exception ex) {
                     await FatalError(ex.Message);
                 }
@@ -78,22 +81,21 @@ namespace Raspberry_PI_Scale
                 }
 
                 display = YDisplay.FirstDisplay();
-                if (display == null) {
-                    await FatalError("No display connected");
+                if (display != null) {
+                    //clean up
+                    await display.resetAll();
+
+                    // retreive the display size
+                    w = await display.get_displayWidth();
+                    h = await display.get_displayHeight();
+
+                    // reteive the first layer
+                    l0 = await display.get_displayLayer(0);
+                    l1 = await display.get_displayLayer(1);
+
+                    // display a text in the middle of the screen
+                    await l0.selectFont("Large.yfm");
                 }
-
-                //clean up
-                await display.resetAll();
-
-                // retreive the display size
-                w = await display.get_displayWidth();
-                h = await display.get_displayHeight();
-
-                // reteive the first layer
-                l0 = await display.get_displayLayer(0);
-
-                // display a text in the middle of the screen
-                await l0.selectFont("Large.yfm");
 
                 unit = await sensor.get_unit();
                 await sensor.registerValueCallback(sensorValueChangeCallBack);
